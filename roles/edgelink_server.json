@@ -1,0 +1,8 @@
+{
+	"name": "edgelink_server",
+	"chef_type": "role",
+	"json_class": "Chef::Role",
+	"description": "EdgeLink-managed general server",
+	"run_list": [
+	]
+}
