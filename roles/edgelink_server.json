@@ -4,5 +4,6 @@
 	"json_class": "Chef::Role",
 	"description": "EdgeLink-managed general server",
 	"run_list": [
+		"recipe[mysql::server]"
 	]
 }
