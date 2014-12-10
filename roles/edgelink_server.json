@@ -4,8 +4,16 @@
 	"json_class": "Chef::Role",
 	"description": "EdgeLink-managed general server",
 	"run_list": [
+		"recipe[edgelink_base]",
 		"recipe[docker]",
 		"recipe[nginx]",
 		"recipe[mysql::server]"
-	]
+	],
+	"default_attributes": {
+		"sshd": {
+			"sshd_config": {
+				"Port": 55022
+			}
+		}
+	}
 }
