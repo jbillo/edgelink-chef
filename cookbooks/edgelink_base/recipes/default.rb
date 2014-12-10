@@ -2,10 +2,11 @@
 
 # Remove any IP addresses from node['sshd']['sshd_config']['ListenAddress'] that aren't
 # defined on this host, then set node attributes accordingly from
-# node['edgelink']['sshd_config']['ListenAddress'].
+# node['edgelink']['sshd_config']['ListenAddress']. We also convert these addresses to a hash
+# so that the sshd recipe places this section after the Port definition.
 
 node_ip_addresses = []
-valid_listen_addresses = []
+valid_listen_addresses = {}
 
 node['network']['interfaces'].each do |iface, attrs|
 	if !attrs.key?('addresses')
@@ -23,6 +24,7 @@ end
 node_ip_addresses.uniq!
 
 sshd_listen_addresses = node['edgelink']['sshd_config']['ListenAddress']
+
 Chef::Log.info("Possible listen addresses: #{sshd_listen_addresses}")
 sshd_listen_addresses.each do |address|
 	if address.include?(':')
@@ -32,9 +34,9 @@ sshd_listen_addresses.each do |address|
 	end
 
 	if node_ip_addresses.include?(stripped_address)
-		valid_listen_addresses << address
+		valid_listen_addresses[address] = ''
 	end
 end
 
-Chef::Log.info("The following addresses will be used for the sshd ListenAddress option: #{valid_listen_addresses}")
+Chef::Log.info("The following addresses will be used for the sshd ListenAddress option: #{valid_listen_addresses.keys}")
 node.set['sshd']['sshd_config']['ListenAddress'] = valid_listen_addresses
