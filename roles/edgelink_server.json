@@ -4,6 +4,7 @@
 	"json_class": "Chef::Role",
 	"description": "EdgeLink-managed general server",
 	"run_list": [
+		"recipe[sshd]",
 		"recipe[edgelink_base]",
 		"recipe[docker]",
 		"recipe[nginx]",
@@ -12,7 +13,7 @@
 	"default_attributes": {
 		"sshd": {
 			"sshd_config": {
-				"Port": 55022
+				"Port": [55022, 8080]
 			}
 		}
 	}
