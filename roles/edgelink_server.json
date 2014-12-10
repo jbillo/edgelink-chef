@@ -13,7 +13,17 @@
 	"default_attributes": {
 		"sshd": {
 			"sshd_config": {
-				"Port": [55022, 8080]
+				"PermitEmptyPasswords": "no",
+				"Port": [55022, 8080],
+				"TCPKeepAlive": "yes",
+				"Match": {
+					"group sudo": {
+						"PasswordAuthentication": "no"
+					},
+					"group admin": {
+						"PasswordAuthentication": "no"
+					}
+				}
 			}
 		}
 	}
