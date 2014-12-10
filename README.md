@@ -1,31 +1,27 @@
-The chef-repo
-===============
-All installations require a central workspace known as the chef-repo. This is a place where primitive objects--cookbooks, roles, environments, data bags, and chef-repo configuration files--are stored and managed.
+# Overview
 
-The chef-repo should be kept under version control, such as [git](http://git-scm.org), and then managed as if it were source code.
+This repository contains Chef cookbooks and recipes used in setting up a default general-purpose Ubuntu 14.04 server, meant for SSH, IRC, webhosting and email. 
 
-Knife Configuration
--------------------
-Knife is the [command line interface](https://docs.chef.io/knife.html) for Chef. The chef-repo contains a .chef directory (which is a hidden directory by default) in which the Knife configuration file (knife.rb) is located. This file contains configuration settings for the chef-repo.
+# Installation Steps
 
-The knife.rb file is automatically created by the starter kit. This file can be customized to support configuration settings used by [cloud provider options](https://docs.chef.io/plugin_knife.html) and custom [knife plugins](https://docs.chef.io/plugin_knife_custom.html).
+## SSH server and lockdown
 
-Also located inside the .chef directory are .pem files, which contain private keys used to authenticate requests made to the Chef server. The USERNAME.pem file contains a private key unique to the user (and should never be shared with anyone). The ORGANIZATION-validator.pem file contains a private key that is global to the entire organization (and is used by all nodes and workstations that send requests to the Chef server).
+We run the distribution's SSH server on port 55022 as well as 8080. Users in the `sudo` group *must* use key authentication.
 
-More information about knife.rb configuration options can be found in [the documentation for knife](https://docs.chef.io/config_rb_knife.html).
+Because we may switch servers and IPs at any given point, `default['edgelink']['sshd_config']['ListenAddress']` is defined as a node attribute. `edgelink_base::default` will query these addresses and if they are not defined on the system, they get removed from the `node['ssh']['sshd_config']['ListenAddress']`  attributes.
 
-Cookbooks
----------
-A cookbook is the fundamental unit of configuration and policy distribution. A sample cookbook can be found in `cookbooks/starter`. After making changes to any cookbook, you must upload it to the Chef server using knife:
+Node attributes:
+```
+# Contains all the separate ListenAddresses
+node['ssh']['sshd_config']['ListenAddress'] = %w{}
+```
 
-    $ knife upload cookbooks/starter
+## Firewall
 
-For more information about cookbooks, see the example files in the `starter` cookbook.
+I hate ufw for various reasons. iptables all the way.
 
-Roles
------
-Roles provide logical grouping of cookbooks and other roles. A sample role can be found at `roles/starter.rb`.
 
-Getting Started
--------------------------
-Now that you have the chef-repo ready to go, check out [Learn Chef](https://learn.chef.io/) to proceed with your workstation setup. If you have any questions about Chef you can always ask [our support team](https://www.chef.io/support/) for a helping hand.
+
+## User accounts
+
+There are several user accounts

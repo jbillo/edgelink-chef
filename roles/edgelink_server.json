@@ -4,8 +4,8 @@
 	"json_class": "Chef::Role",
 	"description": "EdgeLink-managed general server",
 	"run_list": [
-		"recipe[sshd]",
 		"recipe[edgelink_base]",
+		"recipe[sshd]",
 		"recipe[docker]",
 		"recipe[nginx]",
 		"recipe[mysql::server]"
