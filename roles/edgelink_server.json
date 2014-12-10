@@ -11,12 +11,24 @@
 		"recipe[mysql::server]"
 	],
 	"default_attributes": {
+		"edgelink": {
+			"firewall": {
+				"allowed_tcp_ports": [80, 443, 6667, 8000],
+				"allowed_udp_ports": ["60000:61000"]
+			}
+		},
 		"sshd": {
 			"sshd_config": {
 				"PermitEmptyPasswords": "no",
 				"Port": [55022, 8080],
 				"TCPKeepAlive": "yes",
 				"Match": {
+					"group sftponly": {
+						"ChrootDirectory": "/home/%u",
+						"X11Forwarding": "no",
+						"AllowTcpForwarding": "no",
+						"ForceCommand": "internal-sftp"
+					},
 					"group sudo": {
 						"PasswordAuthentication": "no"
 					},
