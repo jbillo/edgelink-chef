@@ -34,3 +34,25 @@ template "#{node['nginx']['dir']}/conf.d/ssl.conf" do
 	})
     notifies :reload, 'service[nginx]'
 end
+
+#
+# Include snippets
+#
+directory File.join(node['nginx']['dir'], 'includes') do
+	owner 'root'
+	group node['root_group']
+	mode '0755'
+end
+
+%w{drupal mediawiki restrictions ssl wordpress wordpress-noroot}.each do |name|
+	template "#{node['nginx']['dir']}/includes/#{name}.conf" do
+		source "includes/#{name}.conf.erb"
+	end
+end
+
+#
+# Default EdgeLink template
+#
+template "#{node['nginx']['dir']}/sites-available/template" do
+	source "sites-available/template.erb"
+end
