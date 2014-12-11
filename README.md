@@ -41,6 +41,8 @@ Changes from the old server:
 * "upstream" directives moved into separate conf.d file
 * "ssl" directive moved into separate conf.d file
 
+TBD: Site creation mechanism from template (specify site and options in attributes, config gets created, site gets enabled.)
+
 ## Dockerized websites
 
 TBD
