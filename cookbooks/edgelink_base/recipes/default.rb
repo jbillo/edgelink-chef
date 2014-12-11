@@ -116,4 +116,5 @@ end
 include_recipe 'sshd'
 include_recipe 'docker'
 include_recipe 'edgelink_nginx'
+include_recipe 'php-fpm'
 include_recipe 'mysql::server'
