@@ -43,6 +43,10 @@ Changes from the old server:
 
 TBD: Site creation mechanism from template (specify site and options in attributes, config gets created, site gets enabled.)
 
+## php-fpm
+
+From community cookbook. Small patch in place to avoid disabling/re-enabling the default pool every time (https://github.com/yevgenko/cookbook-php-fpm/pull/62/).
+
 ## Dockerized websites
 
 TBD
