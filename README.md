@@ -34,7 +34,12 @@ We have several users with direct shell access. Some of them will have SSH keys 
 
 ## Base nginx webserver
 
-Installed with the `nginx` cookbook.
+We use a wrapper cookbook around `nginx`, called `edgelink_nginx`.
+
+Changes from the old server:
+* "index" directive moved into individual site definitions
+* "upstream" directives moved into separate conf.d file
+* "ssl" directive moved into separate conf.d file
 
 ## Dockerized websites
 

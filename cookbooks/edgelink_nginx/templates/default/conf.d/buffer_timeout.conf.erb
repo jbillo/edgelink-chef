@@ -1,0 +1,15 @@
+<% if node['nginx']['client_header_buffer_size'] -%>
+client_header_buffer_size <%= node['nginx']['client_header_buffer_size'] %>;
+<% end -%>
+<% if node['nginx']['large_client_header_buffers'] -%>
+large_client_header_buffers <%= node['nginx']['large_client_header_buffers']  %>;
+<% end -%>
+<% if node['nginx']['client_body_timeout'] -%>
+client_body_timeout <%= node['nginx']['client_body_timeout'] %>;
+<% end -%>
+<% if node['nginx']['client_header_timeout'] -%>
+client_header_timeout <%= node['nginx']['client_header_timeout'] %>;
+<% end -%>
+<% if node['nginx']['send_timeout'] -%>
+send_timeout <%= node['nginx']['send_timeout'] %>;
+<% end -%>
