@@ -1,6 +1,6 @@
 # Overview
 
-This repository contains Chef cookbooks and recipes used in setting up a default general-purpose Ubuntu 14.04 server, meant for SSH, IRC, webhosting and email. Chances are if you're reading this document, you're probably not one of the brute-forcing script kiddies or bots that regularly try and attack our boxes, so I don't care about telling you which ports we're listening on; you could nmap us anyway. If you do notice a security problem, though, I'd appreciate hearing about it.
+This repository contains Chef cookbooks and recipes used in setting up a default general-purpose Ubuntu 14.04 server, meant for SSH, IRC, webhosting and email. Chances are if you're reading this document, you're probably not one of the brute-forcing script kiddies or bots that regularly try and attack our boxes, so I don't care about telling you which ports we're listening on; you could nmap us anyway. If you do notice a security problem, though, I'd appreciate hearing about it and given a chance to fix the issue.
 
 # Standard Configuration
 
@@ -34,7 +34,7 @@ We have several users with direct shell access. Some of them will have SSH keys 
 
 ## Base nginx webserver
 
-TBD
+Installed with the `nginx` cookbook.
 
 ## Dockerized websites
 
@@ -42,7 +42,11 @@ TBD
 
 ## Mailserver
 
-TBD. Needs TCP ports `25,465,587,110,995,143,993` or a reasonable subset opened.
+TBD. Needs TCP ports `25,465,587,110,995,143,993` or a reasonable subset opened. Also needs:
+
+* Dovecot
+* Exim4
+* Spamassassin
 
 ## IRC
 

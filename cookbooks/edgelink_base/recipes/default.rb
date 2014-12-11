@@ -1,6 +1,5 @@
 # Default base recipe for EdgeLink
 
-
 #
 # [sshd] Set valid SSH ListenAddress properties
 #
@@ -102,7 +101,19 @@ simple_iptables_rule "edgelink_udp" do
 	jump "ACCEPT"
 end
 
-# Reject packets other than those explicitly allowed
+# Reject packets in INPUT and FORWARD other than those explicitly allowed
 simple_iptables_policy "INPUT" do
 	policy "DROP"
 end
+simple_iptables_policy "FORWARD" do
+	policy "DROP"
+end
+
+#
+# Include necessary recipes from the rest of the codebase
+#
+
+include_recipe 'sshd'
+include_recipe 'docker'
+include_recipe 'edgelink_nginx'
+include_recipe 'mysql::server'
